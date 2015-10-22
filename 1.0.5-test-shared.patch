@@ -1,0 +1,12 @@
+--- origsrc/judy-1.0.5/test/Checkit	2007-05-14 12:02:16.000000000 -0500
++++ src/judy-1.0.5/test/Checkit	2015-10-22 11:11:07.655559700 -0500
+@@ -4,7 +4,8 @@ CC=${CC:-cc}
+ echo
+ echo "=== +++++++++ This test runs in 15 seconds on a PIII 750Mhz +++++++"
+ 
+-LIBJUDY=`find ../ -name libJudy.a`
++LIBJUDY="-L../src/obj/.libs -lJudy"
++PATH="../src/obj/.libs:$PATH"
+ JUDY_H=`find ../ -name Judy.h`
+ 
+ echo "$CC -O SLcompare.c -DHASHMETHOD -o SL_Hash"

@@ -1,0 +1,10 @@
+--- origsrc/judy-1.0.5/src/obj/Makefile.am	2007-05-22 09:38:41.000000000 -0500
++++ src/judy-1.0.5/src/obj/Makefile.am	2015-10-22 10:58:45.671339700 -0500
+@@ -10,6 +10,6 @@ libJudy_la_SOURCES =
+ 
+ libJudy_la_LIBADD = ../JudyCommon/*.lo ../JudyL/*.lo ../Judy1/*.lo ../JudyHS/*.lo ../JudySL/*.lo 
+ 
+-libJudy_la_LDFLAGS = @VERSION_INFO@
++libJudy_la_LDFLAGS = @VERSION_INFO@ -no-undefined
+ 
+ DISTCLEANFILES = .deps Makefile

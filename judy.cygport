@@ -1,0 +1,33 @@
+NAME="judy"
+VERSION=1.0.5
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Sparse dynamic array library"
+DESCRIPTION="Judy is a C library that provides a state-of-the-art core
+technology that implements a sparse dynamic array. Judy's key benefits are
+scalability, high performance, and memory efficiency. A Judy array is extensible
+and can scale up to a very large number of elements, bounded only by machine
+memory. Since Judy is designed as an unbounded array, the size of a Judy array
+is not pre-allocated but grows and shrinks dynamically with the array population."
+HOMEPAGE="http://judy.sourceforge.net/"
+SRC_URI="mirror://sourceforge/judy/Judy-${VERSION}.tar.gz"
+PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/Judy.git/plain/Judy-1.0.4-fix-Judy1-mans.patch
+	http://pkgs.fedoraproject.org/cgit/Judy.git/plain/Judy-1.0.5-undefined-behavior.patch
+	1.0.5-no-undefined.patch
+	1.0.5-test-shared.patch
+"
+
+PKG_NAMES="libJudy1 libJudy-devel"
+libJudy1_CONTENTS="usr/bin/cygJudy-1.dll usr/share/doc/"
+libJudy_devel_CONTENTS="usr/include/Judy.h usr/lib/libJudy.dll.a usr/share/man/man3/"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	lndirs
+	cd ${B}
+	CFLAGS+=" -fno-strict-aliasing -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-copy-prop -fno-tree-vrp"
+	cygconf
+	cygmake -j1
+}
